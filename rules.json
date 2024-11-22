@@ -1,0 +1,76 @@
+[
+  {
+    "id": 1,
+    "priority": 2,
+    "action": {
+      "type": "allow"
+    },
+    "condition": {
+      "regexFilter": "^https://\\w*\\.?reddit\\.com/(media|mod|poll|settings|topics|community-points|appeals?|r/[a-zA-Z0-9_]+/s/).*",
+      "resourceTypes": ["main_frame"]
+    },
+    "description": "Allow specific Reddit paths"
+  },
+  {
+    "id": 2,
+    "priority": 2,
+    "action": {
+      "type": "modifyHeaders",
+      "requestHeaders": [{ "header": "Accept", "operation": "remove" }]
+    },
+    "condition": {
+      "regexFilter": "^https://(i|preview).redd.it/*",
+      "resourceTypes": ["main_frame"]
+    },
+    "description": "Remove Accept header for specific Reddit image domains"
+  },
+  {
+    "id": 3,
+    "priority": 2,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "regexSubstitution": "https://old.reddit.com/comments/\\1"
+      }
+    },
+    "condition": {
+      "regexFilter": "^https://\\w*\\.reddit\\.com/gallery/(.*)",
+      "resourceTypes": ["main_frame"]
+    },
+    "description": "Redirect Reddit gallery to old Reddit comments"
+  },
+  {
+    "id": 4,
+    "priority": 1,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "transform": {
+          "host": "old.reddit.com"
+        }
+      }
+    },
+    "condition": {
+      "urlFilter": "||reddit.com/*",
+      "resourceTypes": ["main_frame"]
+    },
+    "description": "Redirect all Reddit URLs to old Reddit"
+  },
+  {
+    "id": 5,
+    "priority": 1,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "transform": {
+          "host": "old.reddit.com"
+        }
+      }
+    },
+    "condition": {
+      "urlFilter": "||www.reddit.com/*",
+      "resourceTypes": ["main_frame"]
+    },
+    "description": "Redirect all www.reddit.com URLs to old Reddit"
+  }
+]

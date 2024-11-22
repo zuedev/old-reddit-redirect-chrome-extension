@@ -1,0 +1,28 @@
+name: Pack Chrome Extension
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Pack Chrome Extension
+        run: |
+          mkdir -p dist
+          zip -r dist/extension.zip . -x "*.git*" -x ".github/*"
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: chrome-extension
+          path: dist/extension.zip
